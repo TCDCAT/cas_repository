@@ -2350,7 +2350,7 @@ class CAS_Client
         // the URL is built when needed only
         if ( empty($this->_callback_url) ) {
             // remove the ticket if present in the URL
-            $final_uri = 'https://';
+            $final_uri = 'http://';
             $final_uri .= $this->_getClientUrl();
             $request_uri = $_SERVER['REQUEST_URI'];
             $request_uri = preg_replace('/\?.*$/', '', $request_uri);
