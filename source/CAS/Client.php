@@ -340,7 +340,7 @@ class CAS_Client
         phpCAS::traceBegin();
         // the URL is build only when needed
         if ( empty($this->_server['login_url']) ) {
-            $this->_server['login_url'] = $this->_buildQueryUrl($this->_getServerBaseURL().'login','service='.urlencode(C("CAS_CALLBACK")));
+            $this->_server['login_url'] = $this->_buildQueryUrl($this->_getServerBaseURL().'login','service='.urlencode($this->getURL()));
         }
         $url = $this->_server['login_url'];
         if ($renew) {
@@ -3505,32 +3505,33 @@ class CAS_Client
      */
     public function getURL()
     {
-        phpCAS::traceBegin();
-        // the URL is built when needed only
-        if ( empty($this->_url) ) {
-            // remove the ticket if present in the URL
-            $final_uri = ($this->_isHttps()) ? 'https' : 'http';
-            $final_uri .= '://';
+        // phpCAS::traceBegin();
+        // // the URL is built when needed only
+        // if ( empty($this->_url) ) {
+        //     // remove the ticket if present in the URL
+        //     $final_uri = ($this->_isHttps()) ? 'https' : 'http';
+        //     $final_uri .= '://';
 
-            $final_uri .= $this->_getClientUrl();
-            $request_uri	= explode('?', $_SERVER['REQUEST_URI'], 2);
-            $final_uri		.= $request_uri[0];
+        //     $final_uri .= $this->_getClientUrl();
+        //     $request_uri	= explode('?', $_SERVER['REQUEST_URI'], 2);
+        //     $final_uri		.= $request_uri[0];
 
-            if (isset($request_uri[1]) && $request_uri[1]) {
-                $query_string= $this->_removeParameterFromQueryString('ticket', $request_uri[1]);
+        //     if (isset($request_uri[1]) && $request_uri[1]) {
+        //         $query_string= $this->_removeParameterFromQueryString('ticket', $request_uri[1]);
 
-                // If the query string still has anything left,
-                // append it to the final URI
-                if ($query_string !== '') {
-                    $final_uri	.= "?$query_string";
-                }
-            }
+        //         // If the query string still has anything left,
+        //         // append it to the final URI
+        //         if ($query_string !== '') {
+        //             $final_uri	.= "?$query_string";
+        //         }
+        //     }
 
-            phpCAS::trace("Final URI: $final_uri");
-            $this->setURL($final_uri);
-        }
-        phpCAS::traceEnd($this->_url);
-        return $this->_url;
+        //     phpCAS::trace("Final URI: $final_uri");
+        //     $this->setURL($final_uri);
+        // }
+        // phpCAS::traceEnd($this->_url);
+        // return $this->_url;
+        return C("CAS_CALLBACK");
     }
 
     /**
