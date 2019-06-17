@@ -3531,7 +3531,7 @@ class CAS_Client
         // }
         // phpCAS::traceEnd($this->_url);
         // return $this->_url;
-        return C("CAS_CALLBACK");
+        return $GLOBALS['CAS_CALLBACK'];
     }
 
     /**
